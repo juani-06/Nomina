@@ -2,6 +2,8 @@ package org.laboral;
 
 import org.laboral.exceptions.DatosNoCorrectos;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,17 +11,13 @@ public class CalculaNominas  {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcion;
+
         try {
-           /* Empleado e = new Empleado("James Cosling","32000032G",'M',4,7);
-
-            Empleado e2 = new Empleado("Ada Lovelance","32000031R",'F');
-
-            escribe (e,e2);
-
-            e2.incrAnyo();
-            e.setCategoria(9);
-
-            escribe (e,e2);*/
+            try (Connection con = ConexionBD.getConexion()) {
+                System.out.println("Conectado a la BD");
+            } catch (SQLException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
 
             FicheroEmpleados fichero = new FicheroEmpleados();
             ArrayList<Empleado> empleados = fichero.leer();
@@ -94,7 +92,6 @@ public class CalculaNominas  {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-
 
     }
 
